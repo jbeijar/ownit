@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ownit - Enlightening Your World</title>
+    <meta
+      name="description"
+      content="Ownit is a Scandinavian tech and management consultancy helping ambitious organizations turn complexity into clarity."
+    />
+    <style>
+      :root {
+        --ink: #08090a;
+        --paper: #f7f6f1;
+        --chalk: #ffffff;
+        --mist: #e8e5dd;
+        --stone: #a8a59c;
+        --steel: #5b6468;
+        --pine: #18352f;
+        --moss: #8c9a82;
+        --line: rgba(8, 9, 10, 0.12);
+        --soft-shadow: 0 18px 60px rgba(8, 9, 10, 0.08);
+        font-family: Avenir, "Avenir Next", "Segoe UI", system-ui, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font-family: Avenir, "Avenir Next", "Segoe UI", system-ui, sans-serif;
+        line-height: 1.5;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .site-shell {
+        min-height: 100vh;
+        overflow: hidden;
+      }
+
+      .nav {
+        position: fixed;
+        z-index: 20;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 24px clamp(22px, 5vw, 72px);
+        color: var(--chalk);
+        mix-blend-mode: difference;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 15px;
+        letter-spacing: 0;
+        font-weight: 500;
+      }
+
+      .brand-mark {
+        width: 42px;
+        height: 28px;
+        display: block;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: clamp(16px, 3vw, 34px);
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.82);
+      }
+
+      .nav-links a {
+        position: relative;
+        padding: 4px 0;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 1px;
+        transform: scaleX(0);
+        transform-origin: left;
+        background: currentColor;
+        transition: transform 180ms ease;
+      }
+
+      .nav-links a:hover::after {
+        transform: scaleX(1);
+      }
+
+      .hero {
+        position: relative;
+        min-height: 92vh;
+        display: grid;
+        align-items: end;
+        padding: 128px clamp(22px, 5vw, 72px) 64px;
+        color: var(--chalk);
+        background:
+          linear-gradient(180deg, rgba(8, 9, 10, 0.28), rgba(8, 9, 10, 0.84)),
+          image-set(
+            url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2400&q=82") 1x
+          );
+        background-size: cover;
+        background-position: center 38%;
+        isolation: isolate;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background:
+          linear-gradient(90deg, rgba(8, 9, 10, 0.65), transparent 62%),
+          radial-gradient(circle at 76% 32%, rgba(255, 255, 255, 0.14), transparent 24%);
+      }
+
+      .hero-grid {
+        width: min(1180px, 100%);
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(240px, 0.56fr);
+        gap: clamp(28px, 7vw, 120px);
+        align-items: end;
+      }
+
+      .eyebrow {
+        margin: 0 0 20px;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      h1 {
+        max-width: 840px;
+        margin: 0;
+        font-size: clamp(58px, 12vw, 168px);
+        line-height: 0.86;
+        font-weight: 400;
+      }
+
+      .hero-copy {
+        max-width: 590px;
+        margin: 28px 0 0;
+        color: rgba(255, 255, 255, 0.78);
+        font-size: clamp(18px, 2.1vw, 24px);
+        font-weight: 400;
+      }
+
+      .hero-actions {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-top: 36px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 22px;
+        border: 1px solid rgba(255, 255, 255, 0.42);
+        border-radius: 2px;
+        color: var(--chalk);
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(14px);
+        font-size: 14px;
+        font-weight: 500;
+        transition:
+          background 180ms ease,
+          color 180ms ease,
+          border-color 180ms ease;
+      }
+
+      .button:hover {
+        background: var(--chalk);
+        border-color: var(--chalk);
+        color: var(--ink);
+      }
+
+      .button.secondary {
+        background: transparent;
+      }
+
+      .hero-panel {
+        border-top: 1px solid rgba(255, 255, 255, 0.32);
+        padding-top: 22px;
+        color: rgba(255, 255, 255, 0.74);
+      }
+
+      .hero-panel strong {
+        display: block;
+        margin-bottom: 12px;
+        color: var(--chalk);
+        font-size: 15px;
+        font-weight: 500;
+      }
+
+      .hero-panel p {
+        margin: 0;
+        font-size: 15px;
+      }
+
+      main {
+        background: var(--paper);
+      }
+
+      .section {
+        padding: clamp(74px, 10vw, 140px) clamp(22px, 5vw, 72px);
+      }
+
+      .section-inner {
+        width: min(1180px, 100%);
+        margin: 0 auto;
+      }
+
+      .intro {
+        display: grid;
+        grid-template-columns: 0.78fr 1fr;
+        gap: clamp(34px, 7vw, 96px);
+        align-items: start;
+      }
+
+      .section-label {
+        margin: 0;
+        color: var(--steel);
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .lead {
+        margin: 0;
+        font-size: clamp(30px, 5vw, 62px);
+        line-height: 1.04;
+        font-weight: 400;
+      }
+
+      .body-copy {
+        max-width: 710px;
+        margin: 28px 0 0;
+        color: var(--steel);
+        font-size: clamp(17px, 1.8vw, 21px);
+      }
+
+      .capabilities {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        border-top: 1px solid var(--line);
+        border-left: 1px solid var(--line);
+      }
+
+      .capability {
+        min-height: 280px;
+        padding: clamp(24px, 4vw, 42px);
+        border-right: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.28);
+      }
+
+      .capability svg {
+        width: 34px;
+        height: 34px;
+        margin-bottom: 54px;
+        color: var(--pine);
+      }
+
+      .capability h2 {
+        margin: 0 0 14px;
+        font-size: 24px;
+        line-height: 1.08;
+        font-weight: 500;
+      }
+
+      .capability p {
+        margin: 0;
+        color: var(--steel);
+        font-size: 16px;
+      }
+
+      .proof {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(30px, 6vw, 90px);
+        align-items: center;
+      }
+
+      .proof-visual {
+        position: relative;
+        min-height: 530px;
+        background:
+          linear-gradient(145deg, rgba(24, 53, 47, 0.68), rgba(8, 9, 10, 0.26)),
+          url("https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1600&q=82");
+        background-size: cover;
+        background-position: center;
+        box-shadow: var(--soft-shadow);
+      }
+
+      .proof-visual::after {
+        content: "";
+        position: absolute;
+        inset: 32px;
+        border: 1px solid rgba(255, 255, 255, 0.36);
+      }
+
+      .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 42px;
+        gap: 18px;
+      }
+
+      .metric {
+        border-top: 1px solid var(--line);
+        padding-top: 18px;
+      }
+
+      .metric strong {
+        display: block;
+        font-size: clamp(34px, 5vw, 58px);
+        line-height: 1;
+        font-weight: 400;
+      }
+
+      .metric span {
+        display: block;
+        margin-top: 10px;
+        color: var(--steel);
+        font-size: 14px;
+      }
+
+      .process {
+        background: var(--ink);
+        color: var(--chalk);
+      }
+
+      .process .section-label,
+      .process .body-copy {
+        color: rgba(255, 255, 255, 0.66);
+      }
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1px;
+        margin-top: 54px;
+        background: rgba(255, 255, 255, 0.18);
+      }
+
+      .step {
+        min-height: 230px;
+        padding: 28px;
+        background: var(--ink);
+      }
+
+      .step span {
+        display: block;
+        margin-bottom: 70px;
+        color: var(--moss);
+        font-size: 13px;
+      }
+
+      .step h3 {
+        margin: 0 0 12px;
+        font-size: 21px;
+        font-weight: 500;
+      }
+
+      .step p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.66);
+        font-size: 15px;
+      }
+
+      .contact {
+        display: grid;
+        grid-template-columns: 1fr 0.64fr;
+        gap: clamp(34px, 6vw, 92px);
+        align-items: end;
+      }
+
+      .contact-link {
+        display: inline-flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        padding: 28px 0;
+        color: var(--pine);
+        font-size: clamp(24px, 3vw, 38px);
+      }
+
+      .contact-link svg {
+        flex: 0 0 auto;
+        width: 34px;
+        height: 34px;
+      }
+
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 28px clamp(22px, 5vw, 72px);
+        border-top: 1px solid var(--line);
+        color: var(--steel);
+        font-size: 14px;
+      }
+
+      @media (max-width: 880px) {
+        .nav {
+          position: absolute;
+          padding-top: 20px;
+          mix-blend-mode: normal;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .hero {
+          min-height: 88vh;
+          padding-top: 110px;
+          padding-bottom: 42px;
+        }
+
+        .hero-grid,
+        .intro,
+        .proof,
+        .contact {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-panel {
+          max-width: 420px;
+        }
+
+        .capabilities,
+        .steps,
+        .metric-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .capability,
+        .step {
+          min-height: auto;
+        }
+
+        .capability svg,
+        .step span {
+          margin-bottom: 34px;
+        }
+
+        .proof-visual {
+          min-height: 390px;
+        }
+
+        footer {
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .hero-actions {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .button {
+          width: 100%;
+        }
+
+        .proof-visual {
+          min-height: 300px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="nav" aria-label="Primary navigation">
+        <a class="brand" href="#top" aria-label="Ownit home">
+          <svg class="brand-mark" viewBox="0 0 94 60" role="img" aria-label="Ownit mark">
+            <circle cx="37" cy="30" r="28" fill="none" stroke="currentColor" stroke-width="5" />
+            <path
+              d="M59 6 A34 34 0 0 1 59 54"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="5"
+              stroke-linecap="round"
+              opacity=".58"
+            />
+          </svg>
+          <span>ownit</span>
+        </a>
+        <nav class="nav-links" aria-label="Sections">
+          <a href="#consulting">Consulting</a>
+          <a href="#capabilities">Capabilities</a>
+          <a href="#method">Method</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
+
+      <section class="hero" id="top">
+        <div class="hero-grid">
+          <div>
+            <p class="eyebrow">Scandinavian tech and management consultancy</p>
+            <h1>Ownit</h1>
+            <p class="hero-copy">
+              Enlightening Your World with clear strategy, thoughtful technology, and calm execution.
+            </p>
+            <div class="hero-actions" aria-label="Primary actions">
+              <a class="button" href="#contact">Start a conversation</a>
+              <a class="button secondary" href="#capabilities">Explore our work</a>
+            </div>
+          </div>
+          <aside class="hero-panel" aria-label="Ownit positioning">
+            <strong>Built in Scandinavia for organizations moving through change.</strong>
+            <p>
+              We combine executive advisory, product thinking, data platforms, and operational transformation.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <main>
+        <section class="section" id="consulting">
+          <div class="section-inner intro">
+            <p class="section-label">What we do</p>
+            <div>
+              <p class="lead">
+                We help leaders make technology decisions that are understandable, durable, and ready to execute.
+              </p>
+              <p class="body-copy">
+                Ownit works with founders, boards, and management teams when ambition is high and the path is not yet
+                clear. Our role is to turn strategic intent into operating models, platforms, and delivery routines that
+                teams can trust.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="capabilities">
+          <div class="section-inner capabilities">
+            <article class="capability">
+              <svg viewBox="0 0 40 40" aria-hidden="true">
+                <path d="M5 20h30M20 5v30" fill="none" stroke="currentColor" stroke-width="2" />
+                <circle cx="20" cy="20" r="12" fill="none" stroke="currentColor" stroke-width="2" />
+              </svg>
+              <h2>Management clarity</h2>
+              <p>Strategy, governance, operating models, and decision structures for complex transformation.</p>
+            </article>
+            <article class="capability">
+              <svg viewBox="0 0 40 40" aria-hidden="true">
+                <path d="M7 29 20 8l13 21H7Z" fill="none" stroke="currentColor" stroke-width="2" />
+                <path d="M14 27h12" fill="none" stroke="currentColor" stroke-width="2" />
+              </svg>
+              <h2>Technology direction</h2>
+              <p>Architecture, cloud, AI, data, and product platforms shaped around real business constraints.</p>
+            </article>
+            <article class="capability">
+              <svg viewBox="0 0 40 40" aria-hidden="true">
+                <path d="M8 12h24M8 20h18M8 28h24" fill="none" stroke="currentColor" stroke-width="2" />
+                <path d="M29 18l4 2-4 2" fill="none" stroke="currentColor" stroke-width="2" />
+              </svg>
+              <h2>Delivery momentum</h2>
+              <p>Hands-on program leadership, team enablement, and measurable progress from plan to production.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-inner proof">
+            <div class="proof-visual" aria-label="Nordic architecture and light"></div>
+            <div>
+              <p class="section-label">Scandinavian quality</p>
+              <p class="lead">Quiet confidence. Precise thinking. Work that earns trust over time.</p>
+              <p class="body-copy">
+                Our consultants bring senior judgment without theatre. We document the tradeoffs, align the people who
+                need to decide, and stay close enough to implementation to keep strategy honest.
+              </p>
+              <div class="metric-grid">
+                <div class="metric">
+                  <strong>01</strong>
+                  <span>Clarity before scale</span>
+                </div>
+                <div class="metric">
+                  <strong>02</strong>
+                  <span>Design for ownership</span>
+                </div>
+                <div class="metric">
+                  <strong>03</strong>
+                  <span>Build with restraint</span>
+                </div>
+                <div class="metric">
+                  <strong>04</strong>
+                  <span>Measure what changes</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section process" id="method">
+          <div class="section-inner">
+            <p class="section-label">Our method</p>
+            <p class="lead">From fog to focus, without adding unnecessary weight.</p>
+            <p class="body-copy">
+              Every engagement is shaped around context, but the working rhythm stays simple: see clearly, decide
+              deliberately, execute with discipline, and transfer ownership.
+            </p>
+            <div class="steps">
+              <article class="step">
+                <span>01</span>
+                <h3>Illuminate</h3>
+                <p>Map ambition, constraints, risks, and the decisions that matter most.</p>
+              </article>
+              <article class="step">
+                <span>02</span>
+                <h3>Frame</h3>
+                <p>Translate direction into choices, architecture, and operating principles.</p>
+              </article>
+              <article class="step">
+                <span>03</span>
+                <h3>Mobilize</h3>
+                <p>Align teams, vendors, and leaders around a delivery model that can move.</p>
+              </article>
+              <article class="step">
+                <span>04</span>
+                <h3>Own</h3>
+                <p>Leave the organization with capability, confidence, and a clear next cadence.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="contact">
+          <div class="section-inner contact">
+            <div>
+              <p class="section-label">Contact</p>
+              <p class="lead">Ready to bring more light to a complex decision?</p>
+            </div>
+            <a class="contact-link" href="mailto:hello@ownit.example" aria-label="Email Ownit">
+              <span>hello@ownit.example</span>
+              <svg viewBox="0 0 40 40" aria-hidden="true">
+                <path d="M9 31 31 9M14 9h17v17" fill="none" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </a>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <span>Ownit - Enlightening Your World</span>
+        <span>Scandinavia / Tech / Management</span>
+      </footer>
+    </div>
+  </body>
+</html>
