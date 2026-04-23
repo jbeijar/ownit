@@ -61,7 +61,17 @@
         gap: 24px;
         padding: 24px clamp(22px, 5vw, 72px);
         color: var(--chalk);
-        mix-blend-mode: difference;
+        transition:
+          color 180ms ease,
+          background 180ms ease,
+          box-shadow 180ms ease;
+      }
+
+      .nav.is-scrolled {
+        color: var(--ink);
+        background: rgba(247, 246, 241, 0.86);
+        box-shadow: 0 1px 0 var(--line);
+        backdrop-filter: blur(18px);
       }
 
       .brand {
@@ -83,13 +93,8 @@
         display: flex;
         align-items: center;
         gap: clamp(16px, 3vw, 34px);
-        padding: 10px 14px;
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        border-radius: 2px;
         font-size: 14px;
-        color: rgba(255, 255, 255, 0.94);
-        background: rgba(8, 9, 10, 0.34);
-        backdrop-filter: blur(18px);
+        color: currentColor;
       }
 
       .nav-links a {
@@ -436,9 +441,7 @@
 
       @media (max-width: 880px) {
         .nav {
-          position: absolute;
           padding-top: 20px;
-          mix-blend-mode: normal;
         }
 
         .nav-links {
@@ -682,5 +685,18 @@
         <span>Scandinavia / Tech / Management</span>
       </footer>
     </div>
+    <script>
+      const nav = document.querySelector(".nav");
+      const hero = document.querySelector(".hero");
+
+      const setNavState = () => {
+        const heroBottom = hero.getBoundingClientRect().bottom;
+        nav.classList.toggle("is-scrolled", heroBottom <= 88);
+      };
+
+      setNavState();
+      window.addEventListener("scroll", setNavState, { passive: true });
+      window.addEventListener("resize", setNavState);
+    </script>
   </body>
 </html>
